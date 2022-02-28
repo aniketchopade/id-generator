@@ -11,7 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// album represents data about a record album.
 var id uint64
 
 type response struct {
@@ -20,19 +19,6 @@ type response struct {
 
 var counter uint8
 var workerid uint8
-
-func generateID(c *gin.Context) uint64 {
-	currentTime := time.Now().UnixMilli()
-	timeSinceEpoch := currentTime
-	id := timeSinceEpoch << 8
-	counter++
-	id |= int64(counter)
-	id = id << 8
-	wid2 := c.GetInt("wid")
-	id |= int64(wid2)
-	return uint64(id)
-
-}
 
 func main() {
 	router := gin.Default()
@@ -43,7 +29,6 @@ func main() {
 	router.Run("0.0.0.0:8080")
 }
 
-// getAlbums responds with the list of all albums as JSON.
 func getID(c *gin.Context) {
 	var res response
 	res.ID = generateID(c)
@@ -71,4 +56,17 @@ func getWorkerIdContext() gin.HandlerFunc {
 		c.Set("wid", wid)
 		c.Next()
 	}
+}
+
+func generateID(c *gin.Context) uint64 {
+	currentTime := time.Now().UnixMilli()
+	timeSinceEpoch := currentTime
+	id := timeSinceEpoch << 8
+	counter++
+	id |= int64(counter)
+	id = id << 8
+	wid2 := c.GetInt("wid")
+	id |= int64(wid2)
+	return uint64(id)
+
 }
