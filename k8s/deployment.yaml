@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: id-maker
+spec:
+  selector:
+    matchLabels:
+      app: id-maker
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: id-maker
+    spec:
+      containers:
+      - name: id-maker
+        image: aniketchopade/id-maker
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "250m" 
+        ports:
+          - containerPort: 8080   
+        env:
+          - name: POD_NAME
+            valueFrom: 
+              fieldRef:
+                fieldPath: metadata.name

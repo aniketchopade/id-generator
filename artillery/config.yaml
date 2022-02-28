@@ -1,0 +1,20 @@
+config:
+  target: "http://34.123.95.71"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 50
+      rampTo: 500
+      name: Ramp up load
+    - duration: 300
+      arrivalRate: 800
+      name: Sustained load
+scenarios:
+  - name: "Generate ID"
+    flow:
+      - get:
+          url: "/id"
+          capture: 
+          - json "$.id"             
