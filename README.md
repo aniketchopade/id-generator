@@ -1,4 +1,5 @@
 # counter
+- This is implementation of https://towardsdatascience.com/ace-the-system-design-interview-distributed-id-generator-c65c6b568027
 - This project creates seriall unique IDs
 - IDs are encoded with three parts
     - Timestamp
